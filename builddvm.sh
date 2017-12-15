@@ -13,7 +13,15 @@ if ! (make -v | sed -n 1p | grep 3.81);then
         echo error info:  make version 
         return 1
 fi
+
 cd $androot
+
+__def_path
+if [[ $? != 0 ]];then
+    exit 1
+fi
+swcache
+
 source build/envsetup.sh
 lunch aosp_hammerhead-userdebug
 cd dalvik/vm/native
