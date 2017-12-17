@@ -22,3 +22,13 @@ dalvik_system_DexFile.cpp:u_dalvik_system_DexFile.cpp
 
 clean:
 	rm $(srcroot)/out/target/product/hammerhead/system/lib/libdvm.so libdvm_t.so
+install:
+	adb push libdvm_t.so /data/local/tmp/
+	adb shell su -c mount -o rw,remount /system
+	adb shell su -c cp /data/local/tmp/libdvm_t.so /system/lib/libdvm.so
+	adb shell su -c mount -o ro,remount /system
+uninstall:
+	adb push libdvm_ori.so /data/local/tmp/
+	adb shell su -c mount -o rw,remount /system
+	adb shell su -c cp /data/local/tmp/libdvm_ori.so /system/lib/libdvm.so
+	adb shell su -c mount -o ro,remount /system
